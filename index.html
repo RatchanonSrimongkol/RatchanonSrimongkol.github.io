@@ -1,34 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องคำนวณต้นทุนธุรกิจ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" id="display" disabled>
-        <div class="buttons">
-            <button onclick="press('7')">7</button>
-            <button onclick="press('8')">8</button>
-            <button onclick="press('9')">9</button>
-            <button onclick="press('/')">&divide;</button>
-            <button onclick="press('4')">4</button>
-            <button onclick="press('5')">5</button>
-            <button onclick="press('6')">6</button>
-            <button onclick="press('*')">&times;</button>
-            <button onclick="press('1')">1</button>
-            <button onclick="press('2')">2</button>
-            <button onclick="press('3')">3</button>
-            <button onclick="press('-')">&minus;</button>
-            <button onclick="press('0')">0</button>
-            <button onclick="press('.')">.</button>
-            <button onclick="calculate()">=</button>
-            <button onclick="press('+')">+</button>
-            <button onclick="clearDisplay()">C</button>
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
+  <div class="container">
+    <h1 class="main-title">🧮 เครื่องคำนวณต้นทุนธุรกิจ</h1>
+    
+    <div class="calculator-grid">
+      <div class="calculator-box"><!-- กล่องที่ 1 -->
+        <h2>💰 คิดต้นทุนต่อชิ้น</h2>
+
+        <div class="input-group"> <!-- กล่องครอบ <input> ทั้งสองตัวใช้ class นี้เพื่อจัด layout ให้อยู่ในแถวเดียว / มีช่องว่างห่างกันพอดี -->
+          <input id="num1-1" type="number" placeholder="💵 ต้นทุนที่ซื้อมา (บาท)">
+          <input id="num2-1" type="number" placeholder="📦 จำนวนชิ้นทั้งหมด">
         </div>
+
+        <button class="calculate-btn"  onclick="addNumbers1()">คำนวณ</button>
+        <div class="result" id="result1"></div>
+      </div>
+
+      <div class="calculator-box">
+        <h2>🏠 หาค่าที่ต่อ1ชิ้น</h2>
+        <div class="input-group">
+          <input id="num1-2" type="number" placeholder="🏠 ค่าที่ต่อวัน">
+          <input id="num2-2" type="number" placeholder="📦 จำนวนชิ้นทั้งหมด">
+        </div>
+        <button class="calculate-btn" onclick="addNumbers2()">คำนวณ</button>
+        <div class="result" id="result2"></div>
+      </div>
+
+      <div class="calculator-box">
+        <h2>🚚 หาค่าส่งต่อชิ้น</h2>
+        <div class="input-group">
+          <input id="num1-3" type="number" placeholder="🚚 ค่าขนส่งต่อวัน">
+          <input id="num2-3" type="number" placeholder="📦 จำนวนชิ้นทั้งหมด">
+        </div>
+        <button class="calculate-btn" onclick="addNumbers3()">คำนวณ</button>
+        <div class="result" id="result3"></div>
+      </div>
+
+      <div class="calculator-box">
+        <h2>🛍️ หาราคาถุง1ถุง</h2>
+        <div class="input-group">
+          <input id="num1-4" type="number" placeholder="💰 ราคาของถุงทั้งหมด">
+          <input id="num2-4" type="number" placeholder="🛍️ จำนวนของถุง">
+        </div>
+        <button class="calculate-btn" onclick="addNumbers4()">คำนวณ</button>
+        <div class="result" id="result4"></div>
+      </div>
+
+      <div class="calculator-box">
+        <h2>🏷️ คิดราคาขายต่อชิ้น</h2>
+        <div class="input-group">
+          <input id="num1-5" type="number" placeholder="💰 ราคาต้นทุนต่อชิ้น">
+          <input id="num2-5" type="number" placeholder="🏠 ค่าที่ต่อชิ้น">
+          <input id="num3-5" type="number" placeholder="🚚 ค่าขนส่งต่อชิ้น">
+          <input id="num4-5" type="number" placeholder="🛍️ ค่าถุงต่อชิ้น">
+        </div>
+        <button class="calculate-btn" onclick="addNumbers5()">คำนวณ</button>
+        <div class="result" id="result5"></div>
+      </div>
+
+      <div class="calculator-box">
+        <h2>📊 คำนวนรายจ่ายทั้งหมด</h2>
+        <div class="input-group">
+          <input id="num1-6" type="number" placeholder="🏠 ค่าที่">
+          <input id="num2-6" type="number" placeholder="🚚 ค่าขนส่ง">
+          <input id="num3-6" type="number" placeholder="❌ ค่าผลที่เสียหาย">
+          <input id="num4-6" type="number" placeholder="🛍️ ค่าถุง">
+          <input id="num5-6" type="number" placeholder="🔧 ค่าพัฒนาร้าน (+100บ)">
+          <input id="num6-6" type="number" placeholder="💵 ต้นทุนที่ซื้อมา">
+          <input id="num7-6" type="number" placeholder="👷 ค่าแรง (150บ/วัน)">
+        </div>
+        <button class="calculate-btn" onclick="addNumbers6()">คำนวณ</button>
+        <div class="result cost" id="result6"></div>
+      </div>
+
+      <div class="calculator-box">
+        <h2>💎 คิดกำไร</h2>
+        <div class="input-group">
+          <input id="num1-7" type="number" placeholder="💰 รายรับ">
+          <input id="num2-7" type="number" placeholder="💸 รายจ่ายทั้งหมด">
+        </div>
+        <button class="calculate-btn" onclick="addNumbers7()">คำนวณ</button>
+        <div class="result profit" id="result7"></div>
+      </div>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <script src="index.js"></script>
 </body>
 </html>
